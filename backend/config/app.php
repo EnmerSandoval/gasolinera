@@ -10,7 +10,7 @@ return [
     'name'     => env('APP_NAME', 'Gasolinera ERP'),
     'env'      => env('APP_ENV', 'production'),
     'debug'    => env('APP_DEBUG', false),
-    'url'      => env('APP_URL', 'http://localhost:8080'),
+    'url'      => env('APP_URL', 'http://localhost/gasolinera/backend/public'),
     'timezone' => env('APP_TIMEZONE', 'America/Guatemala'),
 
     'db' => [
@@ -28,11 +28,11 @@ return [
         'algorithm'       => 'HS256',
         'access_ttl'      => (int) env('JWT_ACCESS_TTL', 3600),       // 1 hora
         'refresh_ttl'     => (int) env('JWT_REFRESH_TTL', 604800),    // 7 días
-        'issuer'          => env('APP_URL', 'http://localhost:8080'),
+        'issuer'          => env('APP_URL', 'http://localhost/gasolinera/backend/public'),
     ],
 
     'cors' => [
-        'allowed_origins' => explode(',', env('CORS_ORIGINS', 'http://localhost:3000')),
+        'allowed_origins' => explode(',', env('CORS_ORIGINS', 'http://localhost:5173')),
         'allowed_methods' => ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
         'allowed_headers' => ['Content-Type', 'Authorization', 'X-Sucursal-Id'],
         'max_age'         => 86400,
