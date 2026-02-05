@@ -1,0 +1,21 @@
+{
+    "name": "gasolinera/erp-backend",
+    "description": "ERP de Control de Gasolineras Multi-Sucursal - Backend PHP Puro",
+    "type": "project",
+    "require": {
+        "php": ">=8.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": ""
+        },
+        "files": [
+            "helpers/functions.php"
+        ]
+    },
+    "config": {
+        "platform": {
+            "php": "8.2"
+        }
+    }
+}
