@@ -1,0 +1,67 @@
+version: '3.8'
+
+services:
+  # -----------------------------------------------
+  # MySQL 8
+  # -----------------------------------------------
+  mysql:
+    image: mysql:8.0
+    container_name: gasolinera_mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_DATABASE: gasolinera_erp
+      MYSQL_USER: gasolinera
+      MYSQL_PASSWORD: gasolinera_pass
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./backend/migrations/001_schema.sql:/docker-entrypoint-initdb.d/001_schema.sql
+    command: --default-authentication-plugin=mysql_native_password --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+
+  # -----------------------------------------------
+  # PHP 8.2 + Apache (Backend API)
+  # -----------------------------------------------
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: gasolinera_backend
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    volumes:
+      - ./backend:/var/www/html
+    depends_on:
+      - mysql
+    environment:
+      APP_ENV: development
+      APP_DEBUG: "true"
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_DATABASE: gasolinera_erp
+      DB_USERNAME: gasolinera
+      DB_PASSWORD: gasolinera_pass
+      JWT_SECRET: dev_secret_change_in_production_abc123
+      CORS_ORIGINS: "http://localhost:3000"
+
+  # -----------------------------------------------
+  # React Frontend (Dev server)
+  # -----------------------------------------------
+  frontend:
+    image: node:20-alpine
+    container_name: gasolinera_frontend
+    working_dir: /app
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app
+    command: sh -c "npm install && npm run dev -- --host 0.0.0.0"
+    depends_on:
+      - backend
+    environment:
+      VITE_API_URL: http://localhost:8080/api
+
+volumes:
+  mysql_data:

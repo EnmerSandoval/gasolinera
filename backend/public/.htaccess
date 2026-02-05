@@ -1,0 +1,12 @@
+RewriteEngine On
+
+# Redirigir todo al index.php excepto archivos existentes
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php [QSA,L]
+
+# Seguridad: no listar directorios
+Options -Indexes
+
+# No exponer versión de Apache
+ServerSignature Off
