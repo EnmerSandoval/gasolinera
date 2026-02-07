@@ -49,6 +49,38 @@ $router->get('/health', function () {
     ]);
 });
 
+// DEBUG: temporal - verificar BD y password (ELIMINAR EN PRODUCCION)
+$router->get('/debug/check', function () {
+    $pdo = \App\core\Database::getInstance()->getConnection();
+
+    // Verificar usuario en BD
+    $stmt = $pdo->prepare('SELECT id, email, password_hash, nombre_completo FROM usuarios WHERE email = :email');
+    $stmt->execute([':email' => 'admin@combustiblesdelsur.com.gt']);
+    $user = $stmt->fetch();
+
+    if (!$user) {
+        jsonResponse(['error' => 'Usuario no encontrado en BD', 'tabla_vacia' => true]);
+    }
+
+    $testPassword = 'Admin123!';
+    $hashInDb = $user['password_hash'];
+    $verificacion = password_verify($testPassword, $hashInDb);
+
+    // Generar hash nuevo para comparar
+    $hashNuevo = password_hash($testPassword, PASSWORD_BCRYPT, ['cost' => 12]);
+
+    jsonResponse([
+        'usuario_encontrado' => true,
+        'email'              => $user['email'],
+        'nombre'             => $user['nombre_completo'],
+        'hash_en_bd'         => $hashInDb,
+        'hash_length'        => strlen($hashInDb),
+        'password_verify'    => $verificacion,
+        'hash_nuevo_generado'=> $hashNuevo,
+        'env_loaded'         => file_exists(dirname(__DIR__) . '/.env'),
+    ]);
+});
+
 // -------------------------------------------------------
 // Rutas protegidas (requieren JWT)
 // -------------------------------------------------------
