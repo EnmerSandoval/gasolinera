@@ -29,10 +29,10 @@ INSERT INTO tipos_combustible (id, empresa_id, nombre, codigo, color_hex) VALUES
 -- Usuarios (password: Admin123!)
 -- Hash generado con password_hash('Admin123!', PASSWORD_BCRYPT)
 INSERT INTO usuarios (id, empresa_id, sucursal_id, rol_id, username, email, password_hash, nombre_completo) VALUES
-(1, 1, NULL, 1, 'admin', 'admin@combustiblesdelsur.com.gt', '$2y$12$LJ3m4ys3Gq2JqJ2vS9OZouNEP9z.OvVPH6yExHd3bHqYfY7h.3yXK', 'Carlos Rodriguez (Admin)'),
-(2, 1, 1, 2, 'gerente1', 'gerente1@combustiblesdelsur.com.gt', '$2y$12$LJ3m4ys3Gq2JqJ2vS9OZouNEP9z.OvVPH6yExHd3bHqYfY7h.3yXK', 'Maria Lopez (Gerente Central)'),
-(3, 1, 1, 3, 'islero1', 'islero1@combustiblesdelsur.com.gt', '$2y$12$LJ3m4ys3Gq2JqJ2vS9OZouNEP9z.OvVPH6yExHd3bHqYfY7h.3yXK', 'Juan Perez (Islero)'),
-(4, 1, 2, 3, 'islero2', 'islero2@combustiblesdelsur.com.gt', '$2y$12$LJ3m4ys3Gq2JqJ2vS9OZouNEP9z.OvVPH6yExHd3bHqYfY7h.3yXK', 'Pedro Garcia (Islero Norte)');
+(1, 1, NULL, 1, 'admin', 'admin@combustiblesdelsur.com.gt', '$2y$12$P1D9aKHijDFG6gdUj5DF8uuYH34P1mc2V4dXeiAk4T0przqKTJ4OO', 'Carlos Rodriguez (Admin)'),
+(2, 1, 1, 2, 'gerente1', 'gerente1@combustiblesdelsur.com.gt', '$2y$12$P1D9aKHijDFG6gdUj5DF8uuYH34P1mc2V4dXeiAk4T0przqKTJ4OO', 'Maria Lopez (Gerente Central)'),
+(3, 1, 1, 3, 'islero1', 'islero1@combustiblesdelsur.com.gt', '$2y$12$P1D9aKHijDFG6gdUj5DF8uuYH34P1mc2V4dXeiAk4T0przqKTJ4OO', 'Juan Perez (Islero)'),
+(4, 1, 2, 3, 'islero2', 'islero2@combustiblesdelsur.com.gt', '$2y$12$P1D9aKHijDFG6gdUj5DF8uuYH34P1mc2V4dXeiAk4T0przqKTJ4OO', 'Pedro Garcia (Islero Norte)');
 
 -- Tanques por sucursal
 -- Sucursal 1: Central
