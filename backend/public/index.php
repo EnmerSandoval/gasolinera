@@ -61,13 +61,13 @@ use App\core\Router;
 
 // Manejo global de excepciones
 set_exception_handler(function (\Throwable $e) {
-    $debug = env('APP_DEBUG', false);
+    $debug = env('APP_DEBUG', false) || env('APP_ENV', 'production') === 'development';
     $code = ($e->getCode() >= 400 && $e->getCode() < 600) ? $e->getCode() : 500;
 
     jsonError(
         $debug ? $e->getMessage() : 'Error interno del servidor.',
         $code,
-        $debug ? ['file' => $e->getFile(), 'line' => $e->getLine()] : []
+        $debug ? ['file' => $e->getFile(), 'line' => $e->getLine(), 'trace' => $e->getTraceAsString()] : []
     );
 });
 
